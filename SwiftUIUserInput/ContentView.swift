@@ -12,57 +12,64 @@ struct ContentView: View {
     
     var body: some View {
         
-        ZStack {
-            Color.red
-                .edgesIgnoringSafeArea(.all)
+        NavigationView {
             
-            
-            VStack(alignment: .center, spacing: 180.0) {
-                Text("SwiftUI")
-                .font(.largeTitle)
-                .bold()
-                .padding()
+            ZStack{
+                Color.red
+                    .edgesIgnoringSafeArea(.all)
                 
-                VStack(alignment: .center, spacing: 25) {
-                    TextField("Username", text: $userName)
-                        .padding(.all)
-                        .background(Color.white)
-                        .cornerRadius(10)
+                
+                VStack(alignment: .center, spacing: 180.0) {
+                    Text("SwiftUI")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding()
                     
-                    TextField("Password", text: $userPassword)
-                        .padding(.all)
-                        .background(Color.white)
-                    .cornerRadius(10)
-                    
-                    Toggle(isOn: $isFirstTimeUser) {
-                        Text("First Time User")
-                            .font(.headline)
-                            .bold()
-                            .padding(.horizontal, -10)
-                            .foregroundColor(Color.white)
-                    }.padding(.horizontal, 17)
-                    
-                    
-                    Button(action: {
-                        if self.userName.count <= 5 {
-                            self.isAlertShown = true
-                        }
-                    })
+                    VStack(alignment: .center, spacing: 25) {
+                        TextField("Username", text: $userName)
+                            .padding(.all)
+                            .background(Color.white)
+                            .cornerRadius(10)
+                        
+                        TextField("Password", text: $userPassword)
+                            .padding(.all)
+                            .background(Color.white)
+                            .cornerRadius(10)
+                        
+                        Toggle(isOn: $isFirstTimeUser) {
+                            Text("First Time User")
+                                .font(.headline)
+                                .bold()
+                                .padding(.horizontal, -10)
+                                .foregroundColor(Color.white)
+                        }.padding(.horizontal, 17)
+                        
+                        Button(action: {
+                            if self.userName.count <= 5 {
+                                self.isAlertShown = true
+                            } else {
+                                
+                            }
+                        })
                         {
-                            Text(isFirstTimeUser ? "SignUp" : "Login")
+                            NavigationLink(destination: Text("Hello")) {
+                                Text(isFirstTimeUser ? "SignUp" : "Login")
                                 .fontWeight(.medium)
                                 .font(.title)
                                 .foregroundColor(Color.red)
                                 .padding(.horizontal, 10)
+                            }
                         }.padding()
-                    .background(Color.white)
-                    .cornerRadius(10)
-                        .alert(isPresented: $isAlertShown) {
-                            () -> Alert in
-                            Alert(title: Text("UserName Invalid"), message: Text("Username has to be more than 5 characters"), dismissButton:.default(Text("Got that!")))
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .alert(isPresented: $isAlertShown) {
+                                () -> Alert in
+                                Alert(title: Text("UserName Invalid"), message: Text("Username has to be more than 5 characters"), dismissButton:.default(Text("Got that!")))
                         }
-                }.padding(.horizontal, 17)
-            
+                    }.padding(.horizontal, 17)
+                    
+                }.background(Color.black)
+                
             }
         }
     }
