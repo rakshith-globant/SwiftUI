@@ -8,6 +8,8 @@ struct ContentView: View {
     
     @State private var isFirstTimeUser = false
     
+    @State private var isAlertShown = false
+    
     var body: some View {
         
         ZStack {
@@ -43,7 +45,7 @@ struct ContentView: View {
                     
                     Button(action: {
                         if self.userName.count <= 5 {
-                            Alert(title: Text("UserName Invalid"), message: Text("Username has to be more than 5 characters"), dismissButton:.default(Text("Got that!")))
+                            self.isAlertShown = true
                         }
                     })
                         {
@@ -55,6 +57,10 @@ struct ContentView: View {
                         }.padding()
                     .background(Color.white)
                     .cornerRadius(10)
+                        .alert(isPresented: $isAlertShown) {
+                            () -> Alert in
+                            Alert(title: Text("UserName Invalid"), message: Text("Username has to be more than 5 characters"), dismissButton:.default(Text("Got that!")))
+                        }
                 }.padding(.horizontal, 17)
             
             }
